@@ -1,0 +1,141 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Student System Login</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <style>
+
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg,#4e73df,#6f42c1,#764ba2);
+            font-family: 'Segoe UI',sans-serif;
+        }
+
+        /* login card */
+
+        .login-card {
+            width: 420px;
+            padding: 45px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 30px 70px rgba(0,0,0,.35);
+            color: white;
+        }
+
+        /* title */
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 35px;
+            font-weight: 600;
+        }
+
+        /* inputs */
+
+        .form-control {
+            height: 48px;
+            border-radius: 10px;
+        }
+
+        /* button */
+
+        .btn-login {
+            width: 100%;
+            height: 48px;
+            border-radius: 10px;
+            background: white;
+            color: #4e73df;
+            font-weight: 600;
+            border: none;
+        }
+
+            .btn-login:hover {
+                background: #f3f3f3;
+            }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 12px;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-card">
+
+        <h3 class="login-title">🎓 Student System</h3>
+
+        <form method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label>Email</label>
+                <input name="email" class="form-control" placeholder="Enter your email" required />
+            </div>
+
+            <div class="mb-4 password-wrapper">
+                <label>Password</label>
+                <input id="password" name="password" type="password"
+                       class="form-control" placeholder="Enter your password" required />
+
+                <span class="toggle-password" onclick="togglePassword()">👁</span>
+            </div>
+
+            <button type="submit" class="btn btn-login">
+                Login
+            </button>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="text-warning text-center mt-3">
+                    Invalid login attempt
+                </div>
+            }
+
+        </form>
+
+    </div>
+
+    <script>
+
+        function togglePassword(){
+        const input = document.getElementById("password");
+
+        if(input.type==="password"){
+        input.type="text";
+        }
+        else{
+        input.type="password";
+        }
+
+        }
+
+    </script>
+
+</body>
+</html>

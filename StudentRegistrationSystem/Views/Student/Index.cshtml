@@ -1,0 +1,161 @@
+﻿@model IEnumerable<StudentRegistrationSystem.DTOs.StudentDto>
+
+<h2 class="mb-4">Students</h2>
+
+@if (User.IsInRole("SystemAdmin") || User.IsInRole("AddStudent"))
+{
+    <a asp-action="Create" class="btn btn-primary mb-3">
+        ➕ Add Student
+    </a>
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table align-middle table-hover">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Photo</th>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Course</th>
+                        <th>Gender</th>
+                        <th>Status</th>
+
+                        @if (User.IsInRole("SystemAdmin") ||
+                                                User.IsInRole("EditStudent") ||
+                                                User.IsInRole("DeleteStudent"))
+                        {
+                            <th class="text-end">Actions</th>
+                        }
+
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var s in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @if (!string.IsNullOrEmpty(s.ProfilePhotoPath))
+                                {
+                                    <img src="@s.ProfilePhotoPath"
+                                         style="width:40px;height:40px;border-radius:50%;object-fit:cover;" />
+                                }
+                                else
+                                {
+                                    <img src="/images/default.png"
+                                         style="width:40px;height:40px;border-radius:50%;object-fit:cover;" />
+                                }
+                            </td>
+
+                            <td>@s.RollNumber</td>
+
+                            <td class="fw-semibold">@s.FullName</td>
+
+                            <td>@s.Email</td>
+
+                            <td>
+                                <span class="badge bg-secondary">
+                                    @s.Course
+                                </span>
+                            </td>
+
+                            <td>@s.Gender</td>
+
+                            <td>
+                                @if (s.IsActive)
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Inactive</span>
+                                }
+                            </td>
+
+                            @if (User.IsInRole("SystemAdmin") ||
+                                                    User.IsInRole("EditStudent") ||
+                                                    User.IsInRole("DeleteStudent"))
+                            {
+                                <td class="text-end">
+
+                                    @if (User.IsInRole("SystemAdmin") || User.IsInRole("EditStudent"))
+                                    {
+                                        <a asp-action="Edit"
+                                           asp-route-id="@s.Id"
+                                           class="btn btn-sm btn-outline-warning">
+                                            ✏
+                                        </a>
+                                    }
+
+                                    @if (User.IsInRole("SystemAdmin") || User.IsInRole("DeleteStudent"))
+                                    {
+                                        <form asp-action="Delete"
+                                              method="post"
+                                              id="deleteForm-@s.Id"
+                                              style="display:inline">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <input type="hidden" name="id" value="@s.Id" />
+
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    onclick="confirmDelete('@s.Id')">
+
+                                                🗑
+
+                                            </button>
+
+                                        </form>
+                                    }
+
+                                </td>
+                            }
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+
+        function confirmDelete(id){
+
+        Swal.fire({
+        title: 'Delete Student?',
+        text: "This action cannot be undone!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result)=>{
+
+        if(result.isConfirmed){
+
+        document.getElementById("deleteForm-"+id).submit();
+
+        }
+
+        })
+
+        }
+
+    </script>
+
+}

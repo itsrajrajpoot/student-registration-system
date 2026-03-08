@@ -1,0 +1,119 @@
+﻿@model StudentRegistrationSystem.DTOs.StudentDto
+
+@{
+    ViewData["Title"] = "Edit Student";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-header bg-warning">
+                <h5 class="mb-0">Edit Student</h5>
+            </div>
+
+            <div class="card-body">
+
+                <form asp-action="Edit" method="post" enctype="multipart/form-data">
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Roll Number</label>
+                            <input asp-for="RollNumber" class="form-control" />
+                            <span asp-validation-for="RollNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input asp-for="FullName" class="form-control" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Course</label>
+                            <select asp-for="Course" class="form-control">
+                                <option>B.Tech</option>
+                                <option>BCA</option>
+                                <option>MCA</option>
+                                <option>MBA</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Gender</label>
+                            <select asp-for="Gender" class="form-control">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Status</label>
+                            <select asp-for="IsActive" class="form-control">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Student Photo</label>
+                            <input asp-for="ProfilePhoto" type="file"
+                                   class="form-control"
+                                   onchange="previewImage(event)" />
+
+                            <br />
+
+                            <img id="photoPreview"
+                                 src="@Model.ProfilePhotoPath"
+                                 style="width:120px;border-radius:10px" />
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-warning">
+                        Update Student
+                    </button>
+
+                    <a asp-action="Index" class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+
+        function previewImage(event)
+        {
+        const reader = new FileReader();
+
+        reader.onload = function(){
+        document.getElementById('photoPreview').src = reader.result;
+        }
+
+        reader.readAsDataURL(event.target.files[0]);
+
+        }
+
+    </script>
+
+}

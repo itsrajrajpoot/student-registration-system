@@ -1,0 +1,161 @@
+﻿@using StudentRegistrationSystem.ViewModels
+@model List<UserWithRolesViewModel>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<h2 class="mb-4">User Management</h2>
+
+<a asp-controller="Account"
+   asp-action="Register"
+   class="btn btn-primary mb-3">
+
+    ➕ Register New User
+
+</a>
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table id="userTable" class="table table-hover align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+                        <th>Name</th>
+                        <th>Assigned Roles</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+
+                            <td class="fw-semibold">
+                                @user.FullName
+                            </td>
+
+                            <td>
+
+                                @if (user.Roles != null && user.Roles.Any())
+                                {
+                                    @foreach (var role in user.Roles)
+                                    {
+                                        if (role == "SystemAdmin")
+                                        {
+                                            <span class="badge bg-dark me-1">
+                                                System Admin
+                                            </span>
+                                        }
+                                        else if (role == "ViewStudent")
+                                        {
+                                            <span class="badge bg-primary me-1">
+                                                View
+                                            </span>
+                                        }
+                                        else if (role == "AddStudent")
+                                        {
+                                            <span class="badge bg-success me-1">
+                                                Add
+                                            </span>
+                                        }
+                                        else if (role == "EditStudent")
+                                        {
+                                            <span class="badge bg-warning text-dark me-1">
+                                                Edit
+                                            </span>
+                                        }
+                                        else if (role == "DeleteStudent")
+                                        {
+                                            <span class="badge bg-danger me-1">
+                                                Delete
+                                            </span>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No Roles</span>
+                                }
+
+                            </td>
+
+                            <td class="text-end">
+
+                                <a asp-action="ManageRoles"
+                                   asp-route-userId="@user.Id"
+                                   class="btn btn-sm btn-outline-warning">
+
+                                    ⚙ Manage Roles
+
+                                </a>
+
+                                <form asp-action="Delete"
+                                      method="post"
+                                      id="deleteUser-@user.Id"
+                                      style="display:inline">
+
+                                    <input type="hidden" name="id" value="@user.Id" />
+
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-danger"
+                                            onclick="confirmUserDelete('@user.Id')">
+
+                                        🗑 Remove
+
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <script>
+
+        function confirmUserDelete(id){
+
+        Swal.fire({
+        title: 'Delete User?',
+        text: "User will be removed permanently!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Yes delete'
+        }).then((result)=>{
+
+        if(result.isConfirmed){
+
+        document.getElementById("deleteUser-"+id).submit();
+
+        }
+
+        })
+
+        }
+
+    </script>
+
+}

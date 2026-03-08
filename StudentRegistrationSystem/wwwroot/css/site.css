@@ -1,0 +1,236 @@
+:root {
+    --primary: #4e73df;
+    --glass: rgba(255,255,255,0.15);
+}
+
+body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+.dark-mode {
+    background: linear-gradient(135deg, #1e1e2f, #111);
+}
+
+.glass-nav {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.card-glass {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+    transition: 0.3s ease;
+}
+
+    .card-glass:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+.btn-toggle {
+    background: white;
+}
+.loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    border: 6px solid #fff;
+    border-top: 6px solid #4e73df;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 9999;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
+
+
+body {
+    background: linear-gradient(-45deg, #667eea, #764ba2, #4e73df, #1cc88a);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    color: white;
+    transition: 0.3s ease;
+}
+
+    .glass-card:hover {
+        transform: translateY(-5px);
+    }
+
+
+
+.role-badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.role-admin {
+    background: #dc3545;
+    color: white;
+}
+
+.role-user {
+    background: #28a745;
+    color: white;
+}
+
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #333;
+}
+
+
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+    .table tbody tr {
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(10px);
+        transition: 0.3s ease;
+    }
+
+        .table tbody tr:hover {
+            transform: scale(1.01);
+            background: rgba(255,255,255,0.15);
+        }
+
+.student-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.5);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+.table {
+    color: white;
+}
+
+img.student-avatar {
+    width: 50px !important;
+    height: 50px !important;
+    max-width: 50px !important;
+    max-height: 50px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+
+
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+}
+
+    .sidebar .nav-link {
+        display: block;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        transition: 0.3s;
+    }
+
+        .sidebar .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+
+
+.role-badge {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.role-admin {
+    background: #dc3545;
+    color: white;
+}
+
+.role-hod {
+    background: #ffc107;
+    color: black;
+}
+
+.role-coordinator {
+    background: #0d6efd;
+    color: white;
+}
+
+.role-account {
+    background: #20c997;
+    color: white;
+}
